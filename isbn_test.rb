@@ -1,67 +1,103 @@
 
 
-require "minitest/autorun" 
-require_relative "isbn.rb" 
-class ISBN < Minitest::Test  
+# require "minitest/autorun" 
+# require_relative "isbn.rb" 
+# class TestISBN < Minitest::Test  
 
-	def test_one_equals_one 
-		assert_equal(1,1) 
-	end 
+# 	def test_one_equals_one 
+# 		assert_equal(1,1) 
+# 	end 
  							 
-	def assert_length_true			 
- 		assert_equal(true, (1234567890))
- 	end	  
+# 	def test_length_true			 
+#  		assert_equal(true, check_isbn("1234567890"))
+#  	end	  
   		
-  	def assert_length_false
-  		assert_equal(false, (12345678910))
-  		end			  
+#   	def test_length_false
+#   		assert_equal(false, check_isbn("12345678910"))
+#   	end	
 
-end 
+#   	def test_with_dashes_and_spaces
+#   		assert_equal(true, check_isbn("123 4 5 6---7890"))
+#   	end
+
+# end 
 
 
+require "minitest/autorun"
+require_relative "isbn.rb"
 
-# AIM:
-# Create a program that will verify if a string is a valid ISBN number (see requirements below).
-# Use a TDD approach.
-# This is a big exercise - break it down into chunks!
-# REQUIREMENTS FOR ISBN
-# ISBN-10 is made up of 9 digits plus a check digit (which
-# may be 'X') and ISBN-13 is made up of 12 digits plus a
-# check digit. Spaces and hyphens may be included in a code,
-# but are not significant. This means that 9780471486480 is
-# equivalent to 978-0-471-48648-0 and 978 0 471 48648 0.
-# The check digit for ISBN-10 is calculated by multiplying
-# each digit by its position (i.e., 1 x 1st digit, 2 x 2nd
-# digit, etc.), summing these products together and taking
-# modulo 11 of the result (with 'X' being used if the result
-# is 10).
-# The check digit for ISBN-13 is calculated by multiplying
-# each digit alternately by 1 or 3 (i.e., 1 x 1st digit,
-# 3 x 2nd digit, 1 x 3rd digit, 3 x 4th digit, etc.), summing
-# these products together, taking modulo 10 of the result
-# and subtracting this value from 10, and then taking the
-# modulo 10 of the result again to produce a single digit.
-# Examples of valid ISBN-13:
-# "9780470059029"
-# "978-0-13-149505-0"
-# "978 0 471 48648 0"
-# Examples of valid ISBN-10:
-# "0471958697"
-# "0-321-14653-0"
-# "877195869x"
-# Examples of invalid ISBNs:
-# "4780470059029"
-# "0-321@14653-0"
-# "877195x869"
-# ""
-# " "
-# "-"
-# Example of how the ISBN-10 sumcheck is calculated:
-# first 9 digits of an isbn10: 742139476
-# create checksum:
-# sum = 1*7 + 2*4 + 3*2 + 4*1 + 5*3 + 6*9 7*4 + 8*7 + 9*6
-# sum = 7 + 8 + 6 + 4 + 15 + 54 + 28 + 56 + 54
-# sum = 232
-# checksum = 232%11
-# checksum = 1
-# isbn = 7421394761 
+class TestISBN_Machine < Minitest::Test
+
+	def test_1_equals_1
+		assert_equal(1,1)
+	end
+
+	def test_length_equals_six_fails
+		assert_equal(false,check_isbn_length("123456"))
+	end
+
+	def test_length_equals_ten_passes
+		assert_equal(true,check_isbn_length("1234567891"))
+	end
+
+	def test_removes_dashes_length
+		assert_equal(true,check_isbn_length("123456789-1"))
+	end
+
+	def test_removes_spaces_length
+		assert_equal(true,check_isbn_length("123 123 123 4"))
+	end
+
+	def test_removes_spaces_and_hyphens
+		assert_equal("1234567891",clean_isbn("123 456 789-1"))
+	end
+
+	def test_checks_last_digit_for_ten_true
+		assert_equal(true,check_if_last_num_passes("123456789X"))
+	end
+
+	def test_checks_last_digit_for_ten_false
+		assert_equal(false,check_if_last_num_passes("1234567894"))
+	end
+
+	def test_checks_last_digit_for_thirteen_true
+		assert_equal(true,check_if_last_num_passes("9780306406157"))
+	end
+
+	def test_checks_last_digit_for_thirteen_true_take_two
+		assert_equal(true,check_if_last_num_passes("9780471486480"))
+	end
+
+	def test_checks_last_digit_for_thirteen_false
+		assert_equal(false,check_if_last_num_passes("4780470059029"))
+	end
+
+	def test_checks_complete_function_length_fails
+		assert_equal(false,complete_isbn_function("12345"))
+	end
+
+	def test_checks_complete_function_ten_true
+		assert_equal(true,complete_isbn_function("123456789X"))
+	end
+
+	def test_checks_complete_function_ten_false
+		assert_equal(false,complete_isbn_function("1234567894"))
+	end
+
+	def test_checks_complete_function_thirteen_true
+		assert_equal(true,complete_isbn_function("9780471486480"))
+	end
+
+	def test_checks_complete_function_thirteen_false
+		assert_equal(false,complete_isbn_function("4780470059029"))
+	end
+
+	def test_checks_complete_function_removes_spaces
+		assert_equal(true,complete_isbn_function("12 3456 789 X"))
+	end
+
+	def test_checks_complete_function_removes_dashes
+		assert_equal(true,complete_isbn_function("12-3456-789-X"))
+	end
+
+end
