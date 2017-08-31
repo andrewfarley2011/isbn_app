@@ -19,6 +19,8 @@ class Test_ISBN < Minitest::Test
 		assert_equal(true,check_isbn_length("123456789-0"))
 	end
 
+	# There is a problem with test_removes_hyphens, still need to identify.
+
 	def test_removes_spaces
 		assert_equal(true,check_isbn_length("123 123 123 4"))
 	end
@@ -40,7 +42,7 @@ class Test_ISBN < Minitest::Test
 	end
 
 	def test_checks_last_digit_for_thirteen_false
-		assert_equal(false,check_if_last_num_passes("1234567891011"))
+		assert_equal(false,check_if_last_num_passes("4780470059029"))
 	end
 
 	def test_checks_complete_function_length_fails
