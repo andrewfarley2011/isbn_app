@@ -40,6 +40,7 @@ def check_if_last_num_passes(cleaned_isbn)
 		array_isbn.each.with_index do |var, index|
 			mult = var.to_f * (index.to_f + 1)
 			math_array << mult
+
 		end
 
 		math_array_sum = math_array.inject(0, :+)
@@ -107,7 +108,6 @@ def complete_isbn_function(input_isbn)
 
 	input_isbn = input_isbn.delete(' ')
 	input_isbn = input_isbn.delete('-')
-
 	math_array = []
 
 	if input_isbn.length == 10
@@ -119,8 +119,8 @@ def complete_isbn_function(input_isbn)
 		array_isbn.each.with_index do |var, index|
 
 			mult = var.to_f * (index.to_f + 1)
-
 			math_array << mult
+
 		end
 
 		math_array_sum = math_array.inject(0, :+)
