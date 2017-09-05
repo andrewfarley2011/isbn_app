@@ -17,6 +17,20 @@ def check_isbn_length(sample_isbn)
 
 end
 
+def numbers_only(number)
+
+	if number !~ /\D/
+		true
+
+	elsif number.chop !~ /\D/
+		true
+
+	else
+		false
+
+	end
+
+end
 
 def clean_isbn(sample_isbn_2)
 
@@ -134,15 +148,15 @@ def complete_isbn_function(input_isbn)
 			math_array_mod = "X"
 
 		else
-			returnvar = false
+			returnvar = "false"
 
 		end
 
 		if math_array_mod == last_position_isbn
-			returnvar = true
+			returnvar = "true"
 
 		else
-			returnvar = false
+			returnvar = "false"
 
 		end
 
@@ -171,18 +185,32 @@ def complete_isbn_function(input_isbn)
 		math_array_mod = math_array_mod_one % 10
 
 		if math_array_mod == last_position_isbn.to_i
-			returnvar = true
+			returnvar = "true"
 
 		else
-			returnvar = false
+			returnvar = "false"
 
 		end
 
 	else
-		returnvar = false
+		returnvar = "false"
 
 	end
 
 	returnvar
+
+end
+
+def isbn_results(complete_function_results)
+
+	if complete_function_results == "true"
+		answer = "Excellent, <%=isbn_input%> is valid."
+
+	else
+		answer = "Sorry, <%=isbn_input%> is invalid."
+
+	end
+
+	answer
 
 end

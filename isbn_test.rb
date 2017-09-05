@@ -16,7 +16,7 @@ class Test_ISBN < Minitest::Test
 	end
 
 	def test_removes_hyphens
-		assert_equal(true,check_isbn_length("123456789-0"))
+		assert_equal(true,check_isbn_length("123456789-9"))
 	end
 
 	# There is a problem with test_removes_hyphens, still need to identify.
