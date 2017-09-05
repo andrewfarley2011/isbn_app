@@ -144,7 +144,7 @@ def complete_isbn_function(input_isbn)
 		if math_array_mod <= 9
 			math_array_mod
 
-		elsif math_array_mod ==10
+		elsif math_array_mod == 10
 			math_array_mod = "X"
 
 		else
@@ -202,6 +202,12 @@ def complete_isbn_function(input_isbn)
 end
 
 def isbn_results(complete_function_results)
+
+	# if ((<%=ten%> = checked) && (isbn_number.length == 10) && (complete_function_results == "true")) 
+	# answer = "Excellent, <%=isbn_input%> is valid."
+
+	# elsif ((<%=thirteen%> = checked) && (isbn_number.length == 13) && (complete_function_results == "true"))
+	# answer = "Excellent, <%=isbn_input%> is valid."
 
 	if complete_function_results == "true"
 		answer = "Excellent, <%=isbn_input%> is valid."
